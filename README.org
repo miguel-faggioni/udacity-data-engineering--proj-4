@@ -1,0 +1,54 @@
+* TODO 
+** ETL
+   - etl.py script runs without errors
+     - The script, etl.py, runs in the terminal without errors. The script reads song_data and load_data from S3, transforms them to create five different tables, and writes them to partitioned parquet files in table directories on S3.
+   - Analytics tables are correctly organized on S3.
+     - Each of the five tables are written to parquet files in a separate analytics directory on S3. Each table has its own folder within the directory. Songs table files are partitioned by year and then artist. Time table files are partitioned by year and month. Songplays table files are partitioned by year and month.
+   - The correct data is included in all tables.
+     - Each table includes the right columns and data types. Duplicates are addressed where appropriate.
+** Code quality
+   - The project shows proper use of documentation.
+     - The README file includes a summary of the project, how to run the Python scripts, and an explanation of the files in the repository. Comments are used effectively and each function has a docstring.
+   - The project code is clean and modular.
+     - Scripts have an intuitive, easy-to-follow structure with code separated into logical functions. Naming for variables and functions follows the PEP8 style guidelines.
+
+* Data Lake - Udacity
+
+  This repository is intended for the the fourth project of the Udacity Data Engineering Nanodegree Programa: Data Lake.
+
+  The Introduction and project description were taken from the Udacity curriculum, since they summarize the activity better than I could.
+
+** Introduction
+
+A music streaming startup, Sparkify, has grown their user base and song database even more and want to move their data warehouse to a data lake. Their data resides in S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
+
+As their data engineer, you are tasked with building an ETL pipeline that extracts their data from S3, processes them using Spark, and loads the data back into S3 as a set of dimensional tables. This will allow their analytics team to continue finding insights in what songs their users are listening to.
+
+You'll be able to test your database and ETL pipeline by running queries given to you by the analytics team from Sparkify and compare your results with their expected results.
+
+** Project description
+
+In this project, you'll apply what you've learned on Spark and data lakes to build an ETL pipeline for a data lake hosted on S3. To complete the project, you will need to load data from S3, process the data into analytics tables using Spark, and load them back into S3. You'll deploy this Spark process on a cluster using AWS.
+
+* Folder structure
+
+#+BEGIN_SRC 
+/
+├── data
+│   ├── log-data.zip - zip file containing a subset of the log data from the S3 archive
+│   ├── song-data.zip - zip file containing a subset of the song data from the S3 archive
+|   ├── log_data - contains the unzipped content of data/log-data.zip
+|   │   └── <year>-<month>-<day>-events.csv
+│   └── song_data - contains the unzipped content of data/song-data.zip
+│       └── <first letter of song track ID>
+│           └── <second letter of song track ID>
+│               └── <third letter of song track ID>
+│                   ├── (...)
+│                   └── TR<track ID>.json
+├── dl.cfg - config file with access key and secret to AWS
+├── etl.py - code to read data from the S3 song and log archives to parquet files in another S3 bucket, for later analytics
+├── README.md - this file in markdown
+└── README.org - this file in orgmode
+#+END_SRC
+
+* TODO Usage
