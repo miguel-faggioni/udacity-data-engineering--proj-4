@@ -1,17 +1,3 @@
-* TODO 
-** ETL
-   - etl.py script runs without errors
-     - The script, etl.py, runs in the terminal without errors. The script reads song_data and load_data from S3, transforms them to create five different tables, and writes them to partitioned parquet files in table directories on S3.
-   - Analytics tables are correctly organized on S3.
-     - Each of the five tables are written to parquet files in a separate analytics directory on S3. Each table has its own folder within the directory. Songs table files are partitioned by year and then artist. Time table files are partitioned by year and month. Songplays table files are partitioned by year and month.
-   - The correct data is included in all tables.
-     - Each table includes the right columns and data types. Duplicates are addressed where appropriate.
-** Code quality
-   - The project shows proper use of documentation.
-     - The README file includes a summary of the project, how to run the Python scripts, and an explanation of the files in the repository. Comments are used effectively and each function has a docstring.
-   - The project code is clean and modular.
-     - Scripts have an intuitive, easy-to-follow structure with code separated into logical functions. Naming for variables and functions follows the PEP8 style guidelines.
-
 * Data Lake - Udacity
 
   This repository is intended for the the fourth project of the Udacity Data Engineering Nanodegree Programa: Data Lake.
@@ -51,4 +37,32 @@ In this project, you'll apply what you've learned on Spark and data lakes to bui
 └── README.org - this file in orgmode
 #+END_SRC
 
-* TODO Usage
+* Usage
+
+  To run the pipeline, run the following snippet on the terminal:
+
+  #+BEGIN_SRC bash
+  python etl.py
+  #+END_SRC
+
+  This code depends on the AWS credentials stored in the ~dl.cfg~ file according to the following structure:
+
+  #+BEGIN_SRC 
+[AWS]
+key=<AWS key>
+secret=<AWS secret>
+
+[S3]
+input=<S3 bucket to load the data from>
+output=<S3 bucket to store the processed data in>
+  #+END_SRC
+
+  The pipeline creates a spark session, processes the ~song_data~ folder on the input S3 bucket, then the ~log_data~ folder on the input S3 bucket. The schema needed to read the files is defined, so as to avoid any unforeseen data mixing up the expected column types.
+
+  When saving the data into the output S3 bucket, each table is stored on their own folder in the S3 output bucket. And each folder is partitioned by the following columns:
+
+  - the /songs/ table is partitioned by ~year~, then ~artist_id~;
+  - the /artists/ table is partitioned by ~artist_id~;
+  - the /users/ table is not partitioned;
+  - the /time/ table is partitioned by ~year~, then ~month~;
+  - and the /songplays/ table is partitioned by ~year~, then ~month~
