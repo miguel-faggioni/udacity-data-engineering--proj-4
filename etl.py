@@ -23,7 +23,7 @@ def create_spark_session():
 
 def process_song_data(spark, input_data, output_data):
     # get filepath to song data files
-    song_data_in = os.path.join(input_data,'song_data')#TODO revisar
+    song_data_in = os.path.join(input_data,'song_data','A','R')#TODO remover A/R
 
     # enforce the field types using a schema to read the data
     song_data_schema = StructType([
@@ -73,8 +73,8 @@ def process_song_data(spark, input_data, output_data):
 
 def process_log_data(spark, input_data, output_data):
     # get filepath to log data files
-    log_data_in = os.path.join(input_data,'log_data')#TODO revisar
-    song_data_in = os.path.join(input_data,'song_data')#TODO revisar
+    log_data_in = os.path.join(input_data,'log_data','2018')#TODO remover 2018
+    song_data_in = os.path.join(input_data,'song_data','A','R')#TODO remover A/R
 
     # enforce the field types using a schema to read the data
     log_data_schema = StructType([
@@ -198,9 +198,8 @@ def process_log_data(spark, input_data, output_data):
 
 def main():
     spark = create_spark_session()
-    input_data = '/home/miguel/udacity/project_4/data' #TODO mudar pra S3
-    #input_data = "s3a://udacity-dend/"
-    output_data = '/home/miguel/udacity/project_4/data/output_data'
+    input_data = 's3a://udacity-dend/'
+    output_data = 's3a://udacity-data-engineering-microdegree-project-4/'
     
     process_song_data(spark, input_data, output_data)    
     process_log_data(spark, input_data, output_data)
