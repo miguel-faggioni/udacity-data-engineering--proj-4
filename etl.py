@@ -198,8 +198,8 @@ def process_log_data(spark, input_data, output_data):
 
 def main():
     spark = create_spark_session()
-    input_data = 's3a://udacity-dend/'
-    output_data = 's3a://udacity-data-engineering-microdegree-project-4/'
+    input_data = config.get('AWS','input')
+    output_data = config.get('S3','output')
     
     process_song_data(spark, input_data, output_data)    
     process_log_data(spark, input_data, output_data)
