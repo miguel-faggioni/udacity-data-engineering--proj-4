@@ -1,3 +1,18 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""ETL pipeline for the Data Lake project for Udacity.
+
+This file loads data from an S3 bucket into spark, then parses it into
+5 tables, which are then stored in parquet files on another S3 bucket.
+
+Each of the 5 tables is stored on a different folder on the output bucket,
+with some of them being further divided into partitions.
+
+Usage example:
+    $ python etl.py
+
+"""
+
 import configparser
 from datetime import datetime
 import os
