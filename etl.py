@@ -38,7 +38,7 @@ def create_spark_session():
 
 def process_song_data(spark, input_data, output_data):
     # get filepath to song data files
-    song_data_in = os.path.join(input_data,'song_data','A','R')#TODO remover A/R
+    song_data_in = os.path.join(input_data,'song_data')
 
     # enforce the field types using a schema to read the data
     song_data_schema = StructType([
@@ -88,8 +88,8 @@ def process_song_data(spark, input_data, output_data):
 
 def process_log_data(spark, input_data, output_data):
     # get filepath to log data files
-    log_data_in = os.path.join(input_data,'log_data','2018')#TODO remover 2018
-    song_data_in = os.path.join(input_data,'song_data','A','R')#TODO remover A/R
+    log_data_in = os.path.join(input_data,'log_data')
+    song_data_in = os.path.join(input_data,'song_data')
 
     # enforce the field types using a schema to read the data
     log_data_schema = StructType([
@@ -128,9 +128,6 @@ def process_log_data(spark, input_data, output_data):
                     .withColumnRenamed('lastName','last_name') \
                     .distinct()
 
-    # for the same user_id, get only the latest level
-    #TODO
-    
     # write users table to parquet files
     users_table.write \
                .mode('overwrite') \
